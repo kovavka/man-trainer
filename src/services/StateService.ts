@@ -1,11 +1,15 @@
 import {ScreenType} from "../types/ScreenType";
 import signals from 'signals';
 import {TempaiGenerator} from "./HandGenerator";
+import {TempaiService} from "./TempaiService";
 
 const HAND_LENGTH = 7
 
+declare var window: any
+
 export class StateService {
     private tempaiGenerator = new TempaiGenerator()
+    private tempaiService = new TempaiService()
     private _currentScreen: ScreenType = ScreenType.PROCESSING
 
     onChange: signals.Signal = new signals.Signal()
@@ -19,7 +23,10 @@ export class StateService {
     }
 
     private constructor() {
-        this.tempaiGenerator.generate(HAND_LENGTH)
+        let hand = this.tempaiGenerator.generate(HAND_LENGTH)
+        console.log(this.tempaiService.hasTempai(hand))
+
+        window.tempaiService = this.tempaiService
     }
 
     get currentScreen(): ScreenType {

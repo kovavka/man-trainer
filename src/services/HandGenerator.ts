@@ -86,8 +86,8 @@ export class TempaiGenerator {
 
         for(let tile in tileCounts) {
             let tileCount = tileCounts[tile]
-            if (count > tileCount) {
-                count -= count - tileCount
+            if (rand > tileCount) {
+                rand -= tileCount
             } else {
                 return Number(tile)
             }
