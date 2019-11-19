@@ -1,5 +1,5 @@
 export class TempaiGenerator {
-    generate(handLength: number) {
+    generate(handLength: number): {hand: number[], possibleTilesToWait: number[]} {
         let tileCounts: number[] = []
         for(let i = 1; i <= 9; i++) {
             tileCounts[i] = 4
@@ -24,8 +24,10 @@ export class TempaiGenerator {
             }
         }
 
-        console.log(hand.sort())
-        return hand.sort()
+        return {
+            hand: hand.sort(),
+            possibleTilesToWait: this.getPossibleTilesToWait(tileCounts),
+        }
     }
 
     private getForms(): number[][] {
@@ -94,5 +96,17 @@ export class TempaiGenerator {
         }
 
         throw new Error('something went wrong')
+    }
+
+    private getPossibleTilesToWait(tileCounts: number[]): number[] {
+        let tiles: number[] = []
+
+        tileCounts.forEach((tileCount, tile) => {
+            if (tileCount !== 0) {
+                tiles.push(tile)
+            }
+        })
+
+        return tiles
     }
 }

@@ -8,6 +8,7 @@ enum WaitPatternType {
 interface WaitPattern {
     tiles: number[]
     type: WaitPatternType
+    tilesToComplete: number[]
 }
 
 interface HandStructure {
@@ -19,55 +20,32 @@ interface HandStructure {
 }
 
 export class TempaiService {
-     hasTempai(hand: number[]): boolean {
-        let allStructures = this.run([], this.getSimpleSuitStructure(hand))
-        let possibleHandStructures = this.getPossibleStructures(allStructures)
-         console.log(possibleHandStructures)
-
-        for (let handWaitStructure of possibleHandStructures) {
-            if (this.isReadyHand(handWaitStructure)) {
-                return true
-            }
-        }
-
-        return false
+    hasTempai(hand: number[], possibleTilesToWait: number[]): number[] {
+        let tilesToComplete =  this.getTilesToComplete(hand)
+        return tilesToComplete.filter(tile => possibleTilesToWait.indexOf(tile) !== -1)
     }
 
-    private isReadyHand(handStructure: HandStructure) {
-        let pairsCount = 0
-        let waits: WaitPattern[] = []
-        if (handStructure) {
-            if (handStructure.pair) {
-                pairsCount++
-            }
-            waits.push(...handStructure.waitPatterns)
-        }
+    private getTilesToComplete(hand: number[]): number[] {
+        let allStructures = this.run([], this.getSimpleSuitStructure(hand))
+        let possibleHandStructures = this.getPossibleStructures(allStructures)
+        console.log(possibleHandStructures)
 
-        if (pairsCount > 2 || waits.length > 2) {
-            return false
-        }
+        let tilesToComplete = this.selectMany(
+            this.selectMany(possibleHandStructures, x => x.waitPatterns),
+            x => x.tilesToComplete)
+            .filter((value, index, self) => self.indexOf(value) === index)
 
-        if (pairsCount === 2 && waits.length === 0) {
-            return true //SHANPON
-        }
 
-        if (
-            pairsCount === 0 &&
-            ((waits.length === 1 && waits[0].type === WaitPatternType.TANKI) ||
-                (waits.length === 2 && waits.every(pattern => pattern.type === WaitPatternType.SHANPON)))
-        ) {
-            return true
-        }
+        return tilesToComplete
+    }
 
-        if (
-            pairsCount === 1 &&
-            waits.length === 1 &&
-            [WaitPatternType.KANCHAN, WaitPatternType.RYANMEN_PENCHAN].includes(waits[0].type)
-        ) {
-            return true
-        }
-
-        return false
+    private selectMany<T, U>(array: T[], callbackfn: (value: T, index: number, array: T[]) => U): U {
+        // @ts-ignore
+        return array.map(callbackfn).reduce((a, b) => {
+            // @ts-ignore
+            a.push(...b)
+            return a
+        }, [])
     }
 
     private getPossibleStructures(structures: HandStructure[]): HandStructure[] {
@@ -269,6 +247,7 @@ export class TempaiService {
             return <WaitPattern>{
                 tiles: [tile, tile],
                 type: WaitPatternType.SHANPON,
+                tilesToComplete: [tile],
             }
         }
 
@@ -277,6 +256,7 @@ export class TempaiService {
             return <WaitPattern>{
                 tiles: [tile],
                 type: WaitPatternType.TANKI,
+                tilesToComplete: [tile],
             }
         }
 
@@ -285,6 +265,7 @@ export class TempaiService {
             return <WaitPattern>{
                 tiles: [tile, next1],
                 type: WaitPatternType.RYANMEN_PENCHAN,
+                tilesToComplete: this.getRyanmenPenchanCompleteTiles(tile),
             }
         }
 
@@ -293,6 +274,7 @@ export class TempaiService {
             return <WaitPattern>{
                 tiles: [tile],
                 type: WaitPatternType.TANKI,
+                tilesToComplete: [tile],
             }
         }
 
@@ -301,6 +283,7 @@ export class TempaiService {
             return <WaitPattern>{
                 tiles: [tile, next2],
                 type: WaitPatternType.KANCHAN,
+                tilesToComplete: [next1],
             }
         }
 
@@ -308,6 +291,19 @@ export class TempaiService {
         return <WaitPattern>{
             tiles: [tile],
             type: WaitPatternType.TANKI,
+            tilesToComplete: [tile],
         }
+    }
+
+    getRyanmenPenchanCompleteTiles(fisrtTile: number): number[] {
+        if (fisrtTile === 1) {
+            return [3]
+        }
+
+        if (fisrtTile === 8) {
+            return [7]
+        }
+
+        return [fisrtTile - 1, fisrtTile + 2]
     }
 }
