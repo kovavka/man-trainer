@@ -1,3 +1,5 @@
+import {WaitPatternType} from "../types/WaitPatternType";
+
 export class TempaiGenerator {
     generate(handLength: number): {hand: number[], possibleTilesToWait: number[]} {
         let tileCounts: number[] = []
@@ -9,7 +11,8 @@ export class TempaiGenerator {
 
         let hand: number[] = []
         while(hand.length < handLength) {
-            if (handLength - hand.length >= 3) {
+            let remaining = handLength - hand.length
+            if (remaining > 4 || remaining === 3) {
                 let rand = Math.floor(Math.random() * forms.length)
                 let formTiles = forms[rand]
                 formTiles.forEach(tile => {
@@ -19,8 +22,26 @@ export class TempaiGenerator {
 
                 forms = this.updateForms(forms, tileCounts)
             } else {
-                let tile = this.getRandomTile(tileCounts)
-                hand.push(tile)
+                if (remaining === 1 || Math.floor(Math.random() * 4) === WaitPatternType.TANKI) {
+                    let tile = this.getRandomTile(tileCounts)
+                    tileCounts[tile]--
+                    hand.push(tile)
+                } else {
+                    let pair = this.getRandomTile(tileCounts.map(x => x > 1 ? x : 0))
+                    tileCounts[pair] -= 2
+                    hand.push(pair)
+                    hand.push(pair)
+
+                    let waits = this.getWaitPatterns()
+                    waits = this.updateForms(waits, tileCounts)
+
+                    let rand = Math.floor(Math.random() * waits.length)
+                    let waitTiles = waits[rand]
+                    waitTiles.forEach(tile => {
+                        tileCounts[tile]--
+                        hand.push(tile)
+                    })
+                }
             }
         }
 
@@ -59,16 +80,53 @@ export class TempaiGenerator {
         return forms
     }
 
+    private getWaitPatterns(): number[][] {
+        let formsStr = [
+            '11',
+            '12',
+            '13',
+            '22',
+            '23',
+            '24',
+            '33',
+            '34',
+            '35',
+            '44',
+            '45',
+            '46',
+            '55',
+            '56',
+            '57',
+            '66',
+            '67',
+            '68',
+            '77',
+            '78',
+            '79',
+            '88',
+            '89',
+            '99',
+        ]
+
+        let forms: number[][] = []
+        formsStr.forEach(formStr => {
+            let form = formStr.split('').map(x => Number(x))
+            forms.push(form)
+        })
+
+        return forms
+    }
+
     private updateForms(forms: number[][], tileCounts: number[]): number[][] {
         let updatedForms: number[][] = []
 
         forms.forEach(form => {
-            if (form[0] === form[1]) {  //pon
+            if (form[0] === form[1]) {
                 let tile = form[0]
-                if (tileCounts[tile] >= 3) {
+                if (tileCounts[tile] >= form.length) {
                     updatedForms.push(form)
                 }
-            } else { //chii
+            } else {
                 let tile1 = form[0]
                 let tile2 = form[1]
                 let tile3 = form[2]
@@ -84,13 +142,16 @@ export class TempaiGenerator {
 
     private getRandomTile(tileCounts: number[]): number {
         let count = tileCounts.reduce((a, b) => a + b)
-        let rand = Math.random() * count
+        let rand = 1 + Math.random() * (count - 1)
 
         for(let tile in tileCounts) {
             let tileCount = tileCounts[tile]
             if (rand > tileCount) {
                 rand -= tileCount
             } else {
+                if (Number(tile) === 0) {
+                    console.log(6776667676767)
+                }
                 return Number(tile)
             }
         }

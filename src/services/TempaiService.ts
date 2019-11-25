@@ -1,9 +1,4 @@
-enum WaitPatternType {
-    TANKI,
-    SHANPON,
-    KANCHAN,
-    RYANMEN_PENCHAN,
-}
+import {WaitPatternType} from "../types/WaitPatternType";
 
 interface WaitPattern {
     tiles: number[]
@@ -19,24 +14,52 @@ interface HandStructure {
     remainingTiles: number[]
 }
 
-export class TempaiService {
-    hasTempai(hand: number[], possibleTilesToWait: number[]): number[] {
-        let tilesToComplete =  this.getTilesToComplete(hand)
-        return tilesToComplete.filter(tile => possibleTilesToWait.indexOf(tile) !== -1)
-    }
+interface WaitStructure {
+    sets: number[][]
+    waitPatterns: WaitPattern[]
+    pair: number | undefined
+}
 
-    private getTilesToComplete(hand: number[]): number[] {
+export class TempaiService {
+    getWaitStructures(hand: number[], possibleTilesToWait: number[]): WaitStructure[] {
         let allStructures = this.run([], this.getSimpleSuitStructure(hand))
         let possibleHandStructures = this.getPossibleStructures(allStructures)
         console.log(possibleHandStructures)
 
-        let tilesToComplete = this.selectMany(
-            this.selectMany(possibleHandStructures, x => x.waitPatterns),
+        let structures: WaitStructure[] = []
+        possibleHandStructures.forEach(structure => {
+            let sets = structure
+
+            let waitPatterns: WaitPattern[] = []
+            structure.waitPatterns.forEach(waitPattern => {
+                let possibleTiles = waitPattern.tilesToComplete.filter(tile => possibleTilesToWait.indexOf(tile) !== -1)
+                if (possibleTiles.length) {
+                    waitPatterns.push({
+                        tiles: waitPattern.tiles,
+                        type: waitPattern.type,
+                        tilesToComplete: possibleTiles,
+                    })
+                }
+            })
+
+            if (waitPatterns.length) {
+                structures.push(<WaitStructure>{
+                    sets: structure.sets,
+                    waitPatterns: waitPatterns,
+                    pair: structure.pair,
+                })
+            }
+        })
+
+        console.log(this.getTilesToComplete(structures))
+        return structures
+    }
+
+    getTilesToComplete(waitStructures: WaitStructure[]) {
+        return  this.selectMany(
+            this.selectMany(waitStructures, x => x.waitPatterns),
             x => x.tilesToComplete)
             .filter((value, index, self) => self.indexOf(value) === index)
-
-
-        return tilesToComplete
     }
 
     private selectMany<T, U>(array: T[], callbackfn: (value: T, index: number, array: T[]) => U): U {

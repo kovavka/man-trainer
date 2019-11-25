@@ -25,7 +25,8 @@ export class StateService {
     private constructor() {
         let {hand, possibleTilesToWait} = this.tempaiGenerator.generate(HAND_LENGTH)
         console.log(hand)
-        console.log(this.tempaiService.hasTempai(hand, possibleTilesToWait))
+        console.log(possibleTilesToWait)
+        console.log(this.tempaiService.getWaitStructures(hand, possibleTilesToWait))
 
         window.tempaiService = this.tempaiService
     }
