@@ -1,12 +1,30 @@
+#root {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+#root,
+.App,
+.screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.App,
+.screen {
+  flex: 1;
+}
+
 .App {
-  margin: 24px 10vw 0;
+  margin: 0 10vw;
 
   @media(max-width: 800px) {
-    margin: 24px 10px;
+    margin: 0 10px;
   }
 
   @media(min-width: 1500px) {
-    margin: 24px 20vw 0;
+    margin: 0 20vw;
   }
 }
 

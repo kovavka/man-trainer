@@ -50,77 +50,33 @@ input {
   position: relative;
   display: flex;
 
-  &.hand--example {
+  &.hand--options {
+    justify-content: center;
     max-width: 800px;
-  }
+    margin: auto;
 
-  &.hand--with-tsumo {
     .tile {
-      width: calc((100% - 2vw - 28px) / 14);
+      margin: auto;
     }
   }
 
-  .tile {
-    width: calc(100% / 13);
-  }
-
-  &.hand--selectable {
-    &>.tile:hover {
-      opacity: 0.8;
-      cursor: pointer;
-    }
+  &.hand--all {
+    margin-top: 64px;
   }
 }
 
-.kan {
-  z-index: 0;
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  align-items: end;
-  justify-content: flex-end;
-
-  .tile {
-    width: calc((72% - 2vw - 28px) / 14) !important;
-
-    &:nth-child(4n + 1) {
-      margin-left: 10px
-    }
-  }
+.tile {
+  width: calc(100% / 13);
 }
 
-.timer {
-  height: 1em;
-}
-
-.discard {
-  margin-top: 64px;
-  margin-bottom: 36px;
-
-  .discard__line {
-    display: flex;
-    width: 40%;
-    margin-left: 30%;
-    margin-bottom: -0.8%;
-  }
-
-  .tile {
-    position: relative;
-    width: calc((100% - 12px) / 6);
-
-    .tile__mask {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      z-index: 100;
-      background-color: rgba(40, 44, 52, 0.32);
-    }
-  }
-
+.tile--selectable:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 .page-content {
-  min-height: calc(100vh - 144px);
+  flex: 1;
+  overflow: auto;
 }
 
 .page-header {
@@ -128,22 +84,15 @@ input {
   margin: 32px 0;
 
   .page-header__title {
-    font-size: 36px;
+    font-size: 24px;
   }
 }
 
 .page-footer {
-  font-size: 16px;
+  font-size: 18px;
 
   .page-footer__link {
     cursor: pointer;
-  }
-
-  .page-footer__separator {
-    width: 2px;
-    height: 1em;
-    background-color: @text-color;
-    margin: 0px 4px;
   }
 }
 
@@ -178,10 +127,9 @@ input {
 }
 
 .flat-btn  {
-  font-size: 18px;
-  width: 120px;
-  height: 35px;
-  line-height: 30px;
+  font-size: 16px;
+  width: 100px;
+  height: 32px;
   position: relative;
   border-radius: 8px;
   display: flex;
@@ -225,77 +173,5 @@ input {
     width: 100%;
     -webkit-user-drag: none;
     user-select: none;
-  }
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 24px;
-  vertical-align: middle;
-  cursor: pointer;
-  user-select: none;
-  margin-right: 8px;
-
-  .switch__box {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 11px;
-    background-color: #bfbfbf;
-
-    &.switch__box--on {
-      background-color: #479dd0;
-    }
-  }
-
-  .switch__button {
-    position: absolute;
-    top: 2px;
-    bottom: 2px;
-    right: 15px;
-    left: 2px;
-    background-color: white;
-    border-radius: 9px;
-    transition: all 100ms ease;
-
-    &.switch__button--on {
-      right: 2px;
-      left: 15px;
-    }
-  }
-}
-
-.settings {
-  .settings__options{
-    margin-left: 50px;
-
-    &.settings__options--disabled {
-      opacity: 0.3;
-
-      .switch {
-        cursor: default;
-      }
-    }
-  }
-}
-
-.remaining-tiles {
-  color: #797979;
-  font-size: 1.8vw;
-  margin-top: 4px;
-  width: calc((100% - 2vw - 28px) / 14);
-  text-align: center;
-  user-select: none;
-
-  @media(min-width: 1500px) {
-    font-size: 1.4vw;
-  }
-
-  @media(max-width: 800px) {
-    font-size: 2.6vw;
   }
 }

@@ -9,18 +9,11 @@ type TileVisualProps = {
     selected: boolean,
 }
 
-type TileVisualState = {
-    isDropped: boolean
-}
-
-export class TileVisual extends React.Component<TileVisualProps, TileVisualState> {
+export class TileVisual extends React.Component<TileVisualProps> {
     stateService: StateService = StateService.instance
 
     constructor(props: TileVisualProps) {
         super(props);
-        this.state = {
-            isDropped: false,
-        }
     }
 
     onTileSelected() {
@@ -31,7 +24,7 @@ export class TileVisual extends React.Component<TileVisualProps, TileVisualState
 
     render() {
      return (
-         <div className={`tile`}
+         <div className={`tile ${this.props.selectable ? 'tile--selectable' : ''} ${this.props.selected ? 'tile--selected' : ''}`}
               onClick={() => this.onTileSelected()}>
              <div className={'tile__inner'}>
                  <svg viewBox={'0 0 300 470'} className='tile__box'>

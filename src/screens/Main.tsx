@@ -2,6 +2,7 @@ import * as React from 'react'
 import {StateService} from '../services/StateService'
 import {ScreenType} from '../types/ScreenType'
 import {AboutScreen} from './AboutScreen'
+import { GameScreen } from './GameScreen'
 
 type MainState = {
     currentScreen: ScreenType
@@ -36,6 +37,9 @@ export class Main extends React.Component<any, MainState> {
         const currentScreen = this.stateService.currentScreen
         return (
             <div className="App">
+                {currentScreen === ScreenType.PROCESSING && (
+                    <GameScreen/>
+                )}
                 {currentScreen === ScreenType.ABOUT && (
                     <AboutScreen/>
                 )}

@@ -5,7 +5,7 @@ export class AboutScreen extends React.Component {
     stateService: StateService = StateService.instance
 
     onOkClick() {
-        //todo
+        this.stateService.backToGame()
     }
 
     render() {

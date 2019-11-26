@@ -1,24 +1,5 @@
 import {WaitPatternType} from "../types/WaitPatternType";
-
-interface WaitPattern {
-    tiles: number[]
-    type: WaitPatternType
-    tilesToComplete: number[]
-}
-
-interface HandStructure {
-    sets: number[][]
-    unusedTiles: number[]
-    waitPatterns: WaitPattern[]
-    pair: number | undefined
-    remainingTiles: number[]
-}
-
-interface WaitStructure {
-    sets: number[][]
-    waitPatterns: WaitPattern[]
-    pair: number | undefined
-}
+import {WaitPattern, WaitStructure, HandStructure} from "../types/HandStructures";
 
 export class TempaiService {
     getWaitStructures(hand: number[], possibleTilesToWait: number[]): WaitStructure[] {
@@ -28,8 +9,6 @@ export class TempaiService {
 
         let structures: WaitStructure[] = []
         possibleHandStructures.forEach(structure => {
-            let sets = structure
-
             let waitPatterns: WaitPattern[] = []
             structure.waitPatterns.forEach(waitPattern => {
                 let possibleTiles = waitPattern.tilesToComplete.filter(tile => possibleTilesToWait.indexOf(tile) !== -1)
