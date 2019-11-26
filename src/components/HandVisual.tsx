@@ -1,6 +1,7 @@
 import * as React from "react";
 import {TileVisual} from "./TileVisual";
 import {StateService} from '../services/StateService'
+import {TileType} from "../types/TileType";
 
 type HandState = {
     tiles: number[]
@@ -36,7 +37,7 @@ export class HandVisual extends React.Component<{}, HandState> {
             <TileVisual key={index}
                         tile={tile}
                         selectable={false}
-                        selected={false}
+                        selectedType={TileType.IDLE}
             />
         )
     }

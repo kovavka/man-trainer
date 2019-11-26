@@ -11,6 +11,14 @@ body {
   background-color: #282c34;
   color: @text-color;
   font-size: 24px;
+
+  @media(max-width: 800px) {
+    font-size: 18px;
+  }
+
+  @media(max-width: 370px) {
+    font-size: 16px;
+  }
 }
 
 img {
@@ -49,9 +57,9 @@ input {
 .hand {
   position: relative;
   display: flex;
+  justify-content: center;
 
   &.hand--options {
-    justify-content: center;
     max-width: 90%;
     margin: auto;
 
@@ -79,7 +87,6 @@ input {
     margin: auto;
     align-items: center;
 
-
     @media(max-width: 800px) {
       margin-top: 24px;
     }
@@ -93,7 +100,6 @@ input {
       top: 26%;
       left: 12%;
     }
-
   }
 }
 
@@ -123,6 +129,10 @@ input {
     margin: 32px 12px;
   }
 
+  &>* {
+    width: 140px;
+  }
+
   .page-header__title {
     font-size: 24px;
 
@@ -132,6 +142,10 @@ input {
 
     @media(max-width: 370px) {
       font-size: 16px;
+    }
+
+    &.page-header__title--centered {
+      margin: 0 auto;
     }
   }
 

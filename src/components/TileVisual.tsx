@@ -2,11 +2,12 @@ import * as React from "react";
 import {TileService} from "../services/TileService";
 import './tile.less';
 import {StateService} from '../services/StateService'
+import {TileType} from "../types/TileType";
 
 type TileVisualProps = {
     tile: number,
     selectable: boolean,
-    selected: boolean,
+    selectedType: TileType,
 }
 
 export class TileVisual extends React.Component<TileVisualProps> {
@@ -22,9 +23,34 @@ export class TileVisual extends React.Component<TileVisualProps> {
         }
     }
 
+    getTileClassName() {
+        let className = 'tile'
+
+        if (this.props.selectable) {
+            className += ' tile--selectable'
+        }
+
+        switch (this.props.selectedType) {
+            case TileType.SELECTED:
+                className += ' tile--selected'
+                break
+            case TileType.CORRECT:
+                className += ' tile--correct'
+                break
+            case TileType.WRONG:
+                className += ' tile--wrong'
+                break
+            case TileType.MISSED:
+                className += ' tile--missed'
+                break
+        }
+
+        return className
+    }
+
     render() {
      return (
-         <div className={`tile ${this.props.selectable ? 'tile--selectable' : ''} ${this.props.selected ? 'tile--selected' : ''}`}
+         <div className={this.getTileClassName()}
               onClick={() => this.onTileSelected()}>
              <div className={'tile__inner'}>
                  {!this.props.selectable && (

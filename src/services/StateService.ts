@@ -3,6 +3,7 @@ import signals from 'signals';
 import {TempaiGenerator} from "./HandGenerator";
 import {TempaiService} from "./TempaiService";
 import {WaitStructure} from "../types/HandStructures";
+import {ResultType} from "../types/ResultType";
 
 const DEFAULT_HAND_LENGTH = 7
 const HAND_LENGTH_SETTING_NAME = 'HAND_LENGTH'
@@ -13,14 +14,17 @@ export class StateService {
     private tempaiGenerator = new TempaiGenerator()
     private tempaiService = new TempaiService()
     private _currentScreen: ScreenType = ScreenType.PROCESSING
+    private _resultType: ResultType = ResultType.IDLE
     private handLength: number
     private _hand: number[]
     private _waitStructures: WaitStructure[]
     private _selectedTiles: number[] = []
+    private _wrong: number[] = []
+    private _correct: number[] = []
+    private _missed: number[] = []
 
     onChange: signals.Signal = new signals.Signal()
     onHandChanged: signals.Signal = new signals.Signal()
-    onSelectedChanged: signals.Signal = new signals.Signal()
 
     private static _instance: StateService
     static get instance(): StateService {
@@ -48,16 +52,38 @@ export class StateService {
         return this._selectedTiles
     }
 
+    get wrongTiles(): number[] {
+        return this._wrong
+    }
+
+    get correctTiles(): number[] {
+        return this._correct
+    }
+
+    get missedTiles(): number[] {
+        return this._missed
+    }
+
+    get resultType(): ResultType {
+        return this._resultType
+    }
+
     openAbout() {
         this.setScreen(ScreenType.ABOUT)
     }
 
     backToGame() {
-        this.setProcessing()
+        this.setScreen(ScreenType.PROCESSING)
+        this.generateHand()
+    }
+
+    selectLength(value: number) {
+        this.handLength = value
+        localStorage.setItem(HAND_LENGTH_SETTING_NAME, value.toString())
+        this.generateHand()
     }
 
     selectTile(tile: number) {
-        console.log(this._selectedTiles)
         let index = this._selectedTiles.indexOf(tile)
         if (index === -1) {
             this._selectedTiles.push(tile)
@@ -65,7 +91,45 @@ export class StateService {
             this._selectedTiles.splice(index, 1)
         }
 
-        this.onSelectedChanged.dispatch()
+        this.onChange.dispatch()
+    }
+
+    checkWaitings() {
+        this._wrong = []
+        this._correct = []
+        this._missed = []
+
+        let tilesToComplete = this.tempaiService.getTilesToComplete(this._waitStructures)
+
+        console.log(tilesToComplete)
+
+        this.selectedTiles.forEach(tile => {
+            if (tilesToComplete.indexOf(tile) !== -1) {
+                this._correct.push(tile)
+            } else {
+                this._wrong.push(tile)
+            }
+        })
+
+        tilesToComplete.forEach(tile => {
+            if (this.selectedTiles.indexOf(tile) === -1) {
+                this._missed.push(tile)
+            }
+        })
+
+        if (this._missed.length === 0 && this._wrong.length === 0) {
+            this._resultType = ResultType.SUCCESS
+        } else {
+            this._resultType = ResultType.FAIL
+        }
+
+        this.onChange.dispatch()
+    }
+
+    newGame() {
+        this.clear()
+        this.onChange.dispatch()
+        this.generateHand()
     }
 
     private setScreen(screen: ScreenType) {
@@ -75,14 +139,14 @@ export class StateService {
         this.onChange.dispatch()
     }
 
-    private setProcessing() {
-        this.setScreen(ScreenType.PROCESSING)
-        this.generateHand()
-        this.onHandChanged.dispatch()
-    }
-
     private clear() {
-
+        this._hand = []
+        this._waitStructures = []
+        this._selectedTiles = []
+        this._wrong = []
+        this._correct = []
+        this._missed = []
+        this._resultType = ResultType.IDLE
     }
 
     private generateHand() {
@@ -96,6 +160,7 @@ export class StateService {
         if (waitStructures.length) {
             this._hand = hand
             this._waitStructures = waitStructures
+            this.onHandChanged.dispatch()
         } else {
             this.generateHand()
         }

@@ -10,8 +10,6 @@
   @secondary-dark-color: #c1c1c1;
   @tile-back-color: #ffab2d;
   @tile-back-dark-color: #d49331;
-  @mix-percent: 26%;
-  @mix-color: #1a586e;
 
   svg {
     --primary-color: @primary-color;
@@ -24,7 +22,24 @@
     --tile-back-dark-color: @tile-back-dark-color;
   }
 
+
   &.tile--selected svg {
+    .mix-svg(#1a586e, 26%)
+  }
+
+  &.tile--wrong svg {
+    .mix-svg(#6e0c01, 40%)
+  }
+
+  &.tile--missed svg {
+    .mix-svg(#001830, 30%)
+  }
+
+  &.tile--correct svg {
+    .mix-svg(#4f954f, 30%)
+  }
+
+  .mix-svg(@mix-color, @mix-percent) {
     --primary-color: mix(@mix-color, @primary-color, @mix-percent);
     --secondary-color: mix(@mix-color, @secondary-color, @mix-percent);
     --red-color: mix(@mix-color, @red-color, @mix-percent);
