@@ -57,7 +57,7 @@ export class GameScreen extends React.Component<{}, State> {
                  <div className="flex-container">
                      <div className="page-header__title pointer" onClick={() => this.onLengthSelected(7)}>7</div>
                      <div className="page-header__separator" />
-                     <div className="page-header__title pointer" onClick={() => this.onLengthSelected(11)}>11</div>
+                     <div className="page-header__title pointer" onClick={() => this.onLengthSelected(10)}>10</div>
                      <div className="page-header__separator" />
                      <div className="page-header__title pointer" onClick={() => this.onLengthSelected(13)}>13</div>
                  </div>
