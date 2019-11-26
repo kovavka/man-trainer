@@ -10,24 +10,30 @@ export class GameScreen extends React.Component {
         this.stateService.openAbout()
     }
 
+    onConfirmClick() {
+
+    }
+
     render() {
      return (
          <div className="screen">
-             <div className="page-header">
-                <div className="page-header__title">Chinitsu trainer</div>
+             <div className="page-header flex-container flex-container--between">
+                 <div className="flex-container">
+                     <div className="page-header__title pointer">7</div>
+                     <div className="page-header__separator" />
+                     <div className="page-header__title pointer">11</div>
+                     <div className="page-header__separator" />
+                     <div className="page-header__title pointer">13</div>
+                 </div>
+                <div className="page-header__title pointer" onClick={() => this.onAboutClick()}>About</div>
+                <div className="page-header__title pointer" onClick={() => this.onConfirmClick()}>Confirm</div>
              </div>
-             <div className="page-content">
+             <div className="page-content flex-container flex-container--column">
+
+                 <HandVisual/>
 
                  <VariantsVisual/>
 
-                 <HandVisual/>
-             </div>
-             <div className="page-footer">
-                 <div className="flex-container flex-container--center flex-container--margin-s">
-                     <div className="page-footer__link" onClick={() => this.onAboutClick()}>
-                         About
-                     </div>
-                 </div>
              </div>
          </div>
      )

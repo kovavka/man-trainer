@@ -52,16 +52,48 @@ input {
 
   &.hand--options {
     justify-content: center;
-    max-width: 800px;
+    max-width: 90%;
     margin: auto;
+
+    @media(max-width: 800px) {
+      max-width: 90%;
+    }
+
+    @media(min-width: 1500px) {
+      max-width: 800px;
+    }
 
     .tile {
       margin: auto;
     }
+
+    .tile__drawing {
+      width: 75%;
+      top: 19%;
+      left: 12%;
+    }
   }
 
   &.hand--all {
-    margin-top: 64px;
+    flex: 1;
+    margin: auto;
+    align-items: center;
+
+
+    @media(max-width: 800px) {
+      margin-top: 24px;
+    }
+
+    @media(min-width: 1500px) {
+      margin-top: 64px;
+    }
+
+    .tile__drawing {
+      width: 75%;
+      top: 26%;
+      left: 12%;
+    }
+
   }
 }
 
@@ -81,33 +113,45 @@ input {
 
 .page-header {
   text-align: center;
-  margin: 32px 0;
+  margin: 32px 12px;
+
+  @media(max-width: 800px) {
+    margin: 15px 12px;
+  }
+
+  @media(min-width: 1500px) {
+    margin: 32px 12px;
+  }
 
   .page-header__title {
     font-size: 24px;
+
+    @media(max-width: 800px) {
+      font-size: 18px;
+    }
+
+    @media(max-width: 370px) {
+      font-size: 16px;
+    }
   }
-}
 
-.page-footer {
-  font-size: 18px;
 
-  .page-footer__link {
-    cursor: pointer;
+  .page-header__separator {
+    width: 2px;
+    height: 1em;
+    background-color: @text-color;
+    margin: 0px 4px;
   }
 }
 
 .flex-container {
   display: flex;
   align-items: center;
-  margin: 36px 0;
 
   &.flex-container--margin-s {
     margin: 8px 0;
   }
   &.flex-container--margin-m {
-    margin: 16px 0;
-  }
-  &.flex-container--no-margin {
     margin: 16px 0;
   }
 
@@ -119,6 +163,9 @@ input {
   }
   &.flex-container--center {
     justify-content: center;
+  }
+  &.flex-container--column {
+    flex-direction: column;
   }
 
   .flat-btn:not(:first-child) {
@@ -174,4 +221,11 @@ input {
     -webkit-user-drag: none;
     user-select: none;
   }
+}
+
+.pointer {
+  cursor: pointer;
+  padding: 0 4px;
+  margin: 0 4px;
+  border-bottom: 1px solid;
 }

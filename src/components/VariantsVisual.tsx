@@ -18,11 +18,11 @@ export class VariantsVisual extends React.Component<{}, State> {
     }
 
     componentDidMount(): void {
-        this.stateService.onHandChanged.add(this.updateState, this)
+        this.stateService.onSelectedChanged.add(this.updateState, this)
     }
 
     componentWillUnmount(): void {
-        this.stateService.onHandChanged.remove(this.updateState, this)
+        this.stateService.onSelectedChanged.remove(this.updateState, this)
     }
 
     updateState() {

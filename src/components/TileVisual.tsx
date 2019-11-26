@@ -27,9 +27,16 @@ export class TileVisual extends React.Component<TileVisualProps> {
          <div className={`tile ${this.props.selectable ? 'tile--selectable' : ''} ${this.props.selected ? 'tile--selected' : ''}`}
               onClick={() => this.onTileSelected()}>
              <div className={'tile__inner'}>
-                 <svg viewBox={'0 0 300 470'} className='tile__box'>
-                    <use xlinkHref='#tile-hand'></use>
-                 </svg>
+                 {!this.props.selectable && (
+                     <svg viewBox={'0 0 300 470'} className='tile__box'>
+                         <use xlinkHref='#tile-hand'></use>
+                     </svg>
+                 )}
+                 {this.props.selectable && (
+                     <svg viewBox={'0 0 300 470'} className='tile__box'>
+                         <use xlinkHref='#tile-option'></use>
+                     </svg>
+                 )}
 
                  <svg viewBox={'0 0 300 400'}
                      className={'tile__drawing tile__drawing--hand'}>

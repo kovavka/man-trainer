@@ -20,6 +20,7 @@ export class StateService {
 
     onChange: signals.Signal = new signals.Signal()
     onHandChanged: signals.Signal = new signals.Signal()
+    onSelectedChanged: signals.Signal = new signals.Signal()
 
     private static _instance: StateService
     static get instance(): StateService {
@@ -56,7 +57,15 @@ export class StateService {
     }
 
     selectTile(tile: number) {
-        //todo
+        console.log(this._selectedTiles)
+        let index = this._selectedTiles.indexOf(tile)
+        if (index === -1) {
+            this._selectedTiles.push(tile)
+        } else {
+            this._selectedTiles.splice(index, 1)
+        }
+
+        this.onSelectedChanged.dispatch()
     }
 
     private setScreen(screen: ScreenType) {

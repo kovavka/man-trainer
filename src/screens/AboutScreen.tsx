@@ -34,9 +34,9 @@ export class AboutScreen extends React.Component {
                      <br/>
                      Please, report bug if you get one.
                  </div>
-                 <div className={'flex-container'}>
-                     <div className={'flat-btn flat-btn--white'}>
-                         <div className={'flat-btn__caption'} onClick={() => this.onOkClick()}>Back</div>
+                 <div className="flex-container flex-container--margin-m">
+                     <div className="flat-btn flat-btn--white">
+                         <div className="flat-btn__caption" onClick={() => this.onOkClick()}>Back</div>
                      </div>
                  </div>
              </div>

@@ -11,7 +11,7 @@
   @tile-back-color: #ffab2d;
   @tile-back-dark-color: #d49331;
   @mix-percent: 26%;
-  @mix-color: #3a4252;
+  @mix-color: #1a586e;
 
   svg {
     --primary-color: @primary-color;
@@ -24,7 +24,7 @@
     --tile-back-dark-color: @tile-back-dark-color;
   }
 
-  &.tile--select svg {
+  &.tile--selected svg {
     --primary-color: mix(@mix-color, @primary-color, @mix-percent);
     --secondary-color: mix(@mix-color, @secondary-color, @mix-percent);
     --red-color: mix(@mix-color, @red-color, @mix-percent);
@@ -52,18 +52,5 @@
   .tile__drawing {
     position: absolute;
     z-index: 1;
-
-
-    &.tile__drawing--discard {
-      width: 60%;
-      top: 6%;
-      left: 20%;
-    }
-
-    &.tile__drawing--hand {
-      width: 75%;
-      top: 26%;
-      left: 12%;
-    }
   }
 }
