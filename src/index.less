@@ -107,6 +107,7 @@ input {
 .page-content {
   flex: 1;
   overflow: auto;
+  margin-bottom: 8px;
 
   .page-content__inner {
     height: 100%;
@@ -122,14 +123,14 @@ input {
 
 .page-header {
   text-align: center;
-  margin: 32px 12px;
+  margin: 32px 0;
 
   @media(max-width: 800px) {
-    margin: 15px 12px;
+    margin: 15px 0;
   }
 
   @media(min-width: 1500px) {
-    margin: 32px 12px;
+    margin: 32px 0;
   }
 
   .page-header__title {
@@ -156,22 +157,25 @@ input {
   }
 }
 
+.separator {
+  width: 1px;
+  height: 1em;
+  background-color: @text-color;
+  margin: 0px 4px;
+}
+
 .page-footer {
   height: 36px;
   padding: 4px 0;
-
-  .page-footer__separator {
-    width: 1px;
-    height: 1em;
-    background-color: @text-color;
-    margin: 0px 4px;
-  }
 }
 
 .flex-container {
   display: flex;
   align-items: center;
 
+  &.flex-container--small {
+    width: 140px;
+  }
   &.flex-container--margin-s {
     margin: 8px 0;
   }

@@ -56,7 +56,15 @@ export class GameScreen extends React.Component<{}, State> {
     render() {
      return (
          <div className="screen">
-             <div className="page-header flex-container flex-container--center">
+             <div className="page-header flex-container flex-container--between">
+                 <div className="flex-container flex-container--small">
+                     <div className="pointer" onClick={() => this.onLengthSelected(7)}>7</div>
+                     <div className="separator" />
+                     <div className="pointer" onClick={() => this.onLengthSelected(10)}>10</div>
+                     <div className="separator" />
+                     <div className="pointer" onClick={() => this.onLengthSelected(13)}>13</div>
+                 </div>
+
                  {this.state.resultType === ResultType.IDLE && (
                      <div className="page-header__title">
                          Select waitings
@@ -87,6 +95,10 @@ export class GameScreen extends React.Component<{}, State> {
                          Perfect
                      </div>
                  )}
+
+                 <div className="flex-container flex-container--small flex-container--end">
+                    <div className="page-footer__title pointer" onClick={() => this.onAboutClick()}>About</div>
+                 </div>
              </div>
 
              <div className="page-content flex-container flex-container--column">
@@ -107,17 +119,6 @@ export class GameScreen extends React.Component<{}, State> {
                          )}
                      </div>
                  </div>
-             </div>
-
-             <div className="page-footer flex-container flex-container--between">
-                 <div className="flex-container">
-                     <div className="page-footer__title pointer" onClick={() => this.onLengthSelected(7)}>7</div>
-                     <div className="page-footer__separator" />
-                     <div className="page-footer__title pointer" onClick={() => this.onLengthSelected(10)}>10</div>
-                     <div className="page-footer__separator" />
-                     <div className="page-footer__title pointer" onClick={() => this.onLengthSelected(13)}>13</div>
-                 </div>
-                 <div className="page-footer__title pointer" onClick={() => this.onAboutClick()}>About</div>
              </div>
          </div>
      )
