@@ -1,5 +1,8 @@
 export enum ResultType {
     IDLE,
     FAIL,
-    SUCCESS,
+    BAD,
+    NOT_REALLY_GOOD,
+    GOOD,
+    PERFECT,
 }

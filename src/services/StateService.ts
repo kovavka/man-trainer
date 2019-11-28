@@ -80,6 +80,7 @@ export class StateService {
     selectLength(value: number) {
         this.handLength = value
         localStorage.setItem(HAND_LENGTH_SETTING_NAME, value.toString())
+        this.setScreen(ScreenType.PROCESSING)
         this.generateHand()
     }
 
@@ -117,12 +118,7 @@ export class StateService {
             }
         })
 
-        if (this._missed.length === 0 && this._wrong.length === 0) {
-            this._resultType = ResultType.SUCCESS
-        } else {
-            this._resultType = ResultType.FAIL
-        }
-
+        this._resultType = this.calcResult()
         this.onChange.dispatch()
     }
 
@@ -164,5 +160,25 @@ export class StateService {
         } else {
             this.generateHand()
         }
+    }
+
+    private calcResult(): ResultType {
+        if (this._missed.length === 0 && this._wrong.length === 0) {
+            return ResultType.PERFECT
+        }
+
+        if (this._correct.length === 0) {
+            return ResultType.FAIL
+        }
+
+        let result = this._correct.length / (this._wrong.length + this._missed.length + this._correct.length)
+        if (result <= 0.5) {
+            return ResultType.BAD
+        }
+        if (result >= 0.8) {
+            return ResultType.GOOD
+        }
+
+        return ResultType.NOT_REALLY_GOOD
     }
 }

@@ -57,28 +57,55 @@ export class GameScreen extends React.Component<{}, State> {
      return (
          <div className="screen">
              <div className="page-header flex-container flex-container--center">
-                 <div className="page-header__title">
-                     Select waitings
-                 </div>
+                 {this.state.resultType === ResultType.IDLE && (
+                     <div className="page-header__title">
+                         Select waitings
+                     </div>
+                 )}
+                 {this.state.resultType === ResultType.FAIL && (
+                     <div className="page-header__title page-header__title--fail">
+                         Fail
+                     </div>
+                 )}
+                 {this.state.resultType === ResultType.BAD && (
+                     <div className="page-header__title page-header__title--fail">
+                         Bad
+                     </div>
+                 )}
+                 {this.state.resultType === ResultType.NOT_REALLY_GOOD && (
+                     <div className="page-header__title">
+                         Not really good
+                     </div>
+                 )}
+                 {this.state.resultType === ResultType.GOOD && (
+                     <div className="page-header__title page-header__title--success">
+                         Good
+                     </div>
+                 )}
+                 {this.state.resultType === ResultType.PERFECT && (
+                     <div className="page-header__title page-header__title--success">
+                         Perfect
+                     </div>
+                 )}
              </div>
 
              <div className="page-content flex-container flex-container--column">
+                 <div className="page-content__inner">
+                     <HandVisual/>
 
-                 <HandVisual/>
-
-
-                 <div className="flex-container flex-container--between flex-container--align-end flex-container--margin-m">
-                    <VariantsVisual/>
-                     {this.state.resultType === ResultType.IDLE && (
-                         <div className="flat-btn flat-btn--s flat-btn--white">
-                             <div className="flat-btn__caption" onClick={() => this.onConfirmClick()}>Confirm</div>
-                         </div>
-                     )}
-                     {this.state.resultType !== ResultType.IDLE && (
-                         <div className="flat-btn flat-btn--s flat-btn--white">
-                             <div className="flat-btn__caption" onClick={() => this.onNewGameClick()}>New game</div>
-                         </div>
-                     )}
+                     <div className="flex-container flex-container--between flex-container--align-end flex-container--margin-m">
+                        <VariantsVisual/>
+                         {this.state.resultType === ResultType.IDLE && (
+                             <div className="flat-btn flat-btn--s flat-btn--white">
+                                 <div className="flat-btn__caption" onClick={() => this.onConfirmClick()}>Confirm</div>
+                             </div>
+                         )}
+                         {this.state.resultType !== ResultType.IDLE && (
+                             <div className="flat-btn flat-btn--s flat-btn--white">
+                                 <div className="flat-btn__caption" onClick={() => this.onNewGameClick()}>New game</div>
+                             </div>
+                         )}
+                     </div>
                  </div>
              </div>
 
