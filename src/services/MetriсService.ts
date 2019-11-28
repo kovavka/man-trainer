@@ -9,7 +9,7 @@ export class MetricService {
         this.send('NEW_GAME')
     }
 
-    static selectLength() {
-        this.send('SELECT_LENGTH')
+    static selectLength(value: number) {
+        ym(56442517, 'reachGoal', 'SELECT_LENGTH', {value: value})
     }
 }

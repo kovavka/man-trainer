@@ -59,7 +59,7 @@ export class TileVisual extends React.Component<TileVisualProps> {
                      </svg>
                  )}
                  {this.props.selectable && (
-                     <svg viewBox={'0 0 300 470'} className='tile__box'>
+                     <svg viewBox={'0 0 300 440'} className='tile__box'>
                          <use xlinkHref='#tile-option'></use>
                      </svg>
                  )}

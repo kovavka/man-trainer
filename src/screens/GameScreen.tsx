@@ -49,39 +49,48 @@ export class GameScreen extends React.Component<{}, State> {
     }
 
     onLengthSelected(value: number) {
-        MetricService.selectLength()
+        MetricService.selectLength(value)
         this.stateService.selectLength(value)
     }
 
     render() {
      return (
          <div className="screen">
-             <div className="page-header flex-container flex-container--between">
-                 <div className="flex-container">
-                     <div className="page-header__title pointer" onClick={() => this.onLengthSelected(7)}>7</div>
-                     <div className="page-header__separator" />
-                     <div className="page-header__title pointer" onClick={() => this.onLengthSelected(10)}>10</div>
-                     <div className="page-header__separator" />
-                     <div className="page-header__title pointer" onClick={() => this.onLengthSelected(13)}>13</div>
-                 </div>
-                 <div className="flex-container flex-container--center">
-                    <div className="page-header__title pointer" onClick={() => this.onAboutClick()}>About</div>
-                 </div>
-                 <div className="flex-container flex-container--end">
-                     {this.state.resultType === ResultType.IDLE && (
-                         <div className="page-header__title pointer" onClick={() => this.onConfirmClick()}>Confirm</div>
-                     )}
-                     {this.state.resultType !== ResultType.IDLE && (
-                         <div className="page-header__title pointer" onClick={() => this.onNewGameClick()}>New game</div>
-                     )}
+             <div className="page-header flex-container flex-container--center">
+                 <div className="page-header__title">
+                     Select waitings
                  </div>
              </div>
+
              <div className="page-content flex-container flex-container--column">
 
                  <HandVisual/>
 
-                 <VariantsVisual/>
 
+                 <div className="flex-container flex-container--between flex-container--align-end flex-container--margin-m">
+                    <VariantsVisual/>
+                     {this.state.resultType === ResultType.IDLE && (
+                         <div className="flat-btn flat-btn--s flat-btn--white">
+                             <div className="flat-btn__caption" onClick={() => this.onConfirmClick()}>Confirm</div>
+                         </div>
+                     )}
+                     {this.state.resultType !== ResultType.IDLE && (
+                         <div className="flat-btn flat-btn--s flat-btn--white">
+                             <div className="flat-btn__caption" onClick={() => this.onNewGameClick()}>New game</div>
+                         </div>
+                     )}
+                 </div>
+             </div>
+
+             <div className="page-footer flex-container flex-container--between">
+                 <div className="flex-container">
+                     <div className="page-footer__title pointer" onClick={() => this.onLengthSelected(7)}>7</div>
+                     <div className="page-footer__separator" />
+                     <div className="page-footer__title pointer" onClick={() => this.onLengthSelected(10)}>10</div>
+                     <div className="page-footer__separator" />
+                     <div className="page-footer__title pointer" onClick={() => this.onLengthSelected(13)}>13</div>
+                 </div>
+                 <div className="page-footer__title pointer" onClick={() => this.onAboutClick()}>About</div>
              </div>
          </div>
      )
