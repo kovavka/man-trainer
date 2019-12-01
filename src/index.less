@@ -86,6 +86,7 @@ input {
     flex: 1;
     margin: auto;
     align-items: center;
+    width: 80%;
 
     .tile__drawing {
       width: 75%;
@@ -135,6 +136,9 @@ input {
 
   .page-header__title {
     font-size: 36px;
+    width: fit-content;
+    margin-left: auto !important;
+    margin-right: auto !important;
 
     @media(max-width: 800px) {
       font-size: 24px;
@@ -181,6 +185,9 @@ input {
   }
   &.flex-container--margin-m {
     margin: 16px 0;
+  }
+  &.flex-container--margin-l {
+    margin: 24px 0;
   }
 
   &.flex-container--end {
@@ -263,4 +270,10 @@ input {
   cursor: pointer;
   padding: 0 4px;
   margin: 0 4px;
+}
+
+.info-icon {
+  width: 0.8em;
+  margin-left: 8px;
+  opacity: 0.7;
 }

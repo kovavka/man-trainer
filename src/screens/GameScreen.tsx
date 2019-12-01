@@ -55,6 +55,21 @@ export class GameScreen extends React.Component<{}, State> {
         this.stateService.selectLength(value)
     }
 
+    get titleClassName() {
+        if (this.state.resultType === ResultType.IDLE) {
+            return "page-header__title"
+        }
+        if (this.state.resultType === ResultType.NOT_REALLY_GOOD) {
+            return "pointer page-header__title"
+        }
+        if (this.state.resultType === ResultType.FAIL || this.state.resultType === ResultType.BAD) {
+            return "pointer page-header__title page-header__title--fail"
+        }
+        if (this.state.resultType === ResultType.GOOD || this.state.resultType === ResultType.PERFECT) {
+            return "pointer page-header__title page-header__title--success"
+        }
+    }
+
     render() {
      return (
          <div className="screen">
@@ -72,39 +87,33 @@ export class GameScreen extends React.Component<{}, State> {
                          {this.state.timeSpent}
                      </div>
                      <div className="flex-container flex-container--small flex-container--end">
-                        <div className="page-footer__title pointer" onClick={() => this.onAboutClick()}>About</div>
+                        <div className="page-footer__title" onClick={() => this.onAboutClick()}>About</div>
                      </div>
                  </div>
-                 <div className="flex-container flex-container--margin-m flex-container--center">
+                 <div className={"flex-container flex-container--margin-l flex-container--center pointer " + this.titleClassName}>
                      {this.state.resultType === ResultType.IDLE && (
-                         <div className="page-header__title">
-                             Select waitings
-                         </div>
+                         <div>Select waitings</div>
                      )}
                      {this.state.resultType === ResultType.FAIL && (
-                         <div className="page-header__title page-header__title--fail">
-                             Fail
-                         </div>
+                         <div>Fail</div>
                      )}
                      {this.state.resultType === ResultType.BAD && (
-                         <div className="page-header__title page-header__title--fail">
-                             Bad
-                         </div>
+                         <div>Bad</div>
                      )}
                      {this.state.resultType === ResultType.NOT_REALLY_GOOD && (
-                         <div className="page-header__title">
-                             Not really good
-                         </div>
+                         <div>Not really good</div>
                      )}
                      {this.state.resultType === ResultType.GOOD && (
-                         <div className="page-header__title page-header__title--success">
-                             Good
-                         </div>
+                         <div>Good</div>
                      )}
                      {this.state.resultType === ResultType.PERFECT && (
-                         <div className="page-header__title page-header__title--success">
-                             Perfect
-                         </div>
+                         <div>Perfect</div>
+                     )}
+
+                     {this.state.resultType !== ResultType.IDLE && (
+                         <svg viewBox={'0 0 28 28'} className="info-icon">
+                             <use xlinkHref='#info'></use>
+                         </svg>
                      )}
                  </div>
              </div>
