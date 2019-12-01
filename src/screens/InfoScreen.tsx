@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {StateService} from '../services/StateService'
+import {InfoVisual} from '../components/InfoVisual'
 
 type State = {
 }
@@ -42,12 +43,10 @@ export class InfoScreen extends React.Component<{}, State> {
              </div>
 
              <div className="page-content flex-container flex-container--column">
-                 <div className="page-content__inner">
-
-                 </div>
+                <InfoVisual />
              </div>
 
-             <div className="flex-container flex-container--margin-m">
+             <div className="flex-container flex-container--margin-s">
                  <div className="flat-btn flat-btn--white">
                      <div className="flat-btn__caption" onClick={() => this.onBackClick()}>Back</div>
                  </div>

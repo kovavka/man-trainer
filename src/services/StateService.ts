@@ -50,6 +50,10 @@ export class StateService {
         return this._hand
     }
 
+    get structures(): WaitStructure[] {
+        return this._waitStructures
+    }
+
     get selectedTiles(): number[] {
         return this._selectedTiles
     }
@@ -92,12 +96,12 @@ export class StateService {
 
     backToGame() {
         this.setScreen(ScreenType.PROCESSING)
-        this.generateHand()
     }
 
     selectLength(value: number) {
         this.handLength = value
         localStorage.setItem(HAND_LENGTH_SETTING_NAME, value.toString())
+        this.clear()
         this.setScreen(ScreenType.PROCESSING)
         this.generateHand()
     }
@@ -149,8 +153,6 @@ export class StateService {
 
     private setScreen(screen: ScreenType) {
         this._currentScreen = screen
-        this.clear()
-
         this.onChange.dispatch()
     }
 
