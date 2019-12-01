@@ -41,6 +41,10 @@ export class GameScreen extends React.Component<{}, State> {
         this.stateService.openAbout()
     }
 
+    onInfoClick() {
+        this.stateService.openInfo()
+    }
+
     onConfirmClick() {
         this.stateService.checkWaitings()
     }
@@ -90,7 +94,8 @@ export class GameScreen extends React.Component<{}, State> {
                         <div className="page-footer__title" onClick={() => this.onAboutClick()}>About</div>
                      </div>
                  </div>
-                 <div className={"flex-container flex-container--margin-l flex-container--center pointer " + this.titleClassName}>
+                 <div className={"flex-container flex-container--margin-l flex-container--center pointer " + this.titleClassName}
+                    onClick={() => this.onInfoClick()}>
                      {this.state.resultType === ResultType.IDLE && (
                          <div>Select waitings</div>
                      )}

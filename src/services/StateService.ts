@@ -86,6 +86,10 @@ export class StateService {
         this.setScreen(ScreenType.ABOUT)
     }
 
+    openInfo() {
+        this.setScreen(ScreenType.INFO)
+    }
+
     backToGame() {
         this.setScreen(ScreenType.PROCESSING)
         this.generateHand()

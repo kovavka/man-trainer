@@ -10,14 +10,14 @@ export class AboutScreen extends React.Component {
 
     render() {
      return (
-         <div className={'about'}>
-             <div className={'page-header'}>
-                 <div className={'page-header__title'}>
+         <div className="about">
+             <div className="page-header">
+                 <div className="page-header__title">
                      About
                  </div>
              </div>
-             <div className={'page-content'}>
-                 <div className={'about'}>
+             <div className="page-content">
+                 <div className="about">
                      This project is a mahjong trainer for collecting chinitsu.
                      <br/><br/>
                      Repo: <a href={'https://github.com/kovavka/manzu-trainer'}>GitHub</a><br/>

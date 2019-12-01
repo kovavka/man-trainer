@@ -3,6 +3,7 @@ import {StateService} from '../services/StateService'
 import {ScreenType} from '../types/ScreenType'
 import {AboutScreen} from './AboutScreen'
 import { GameScreen } from './GameScreen'
+import {InfoScreen} from "./InfoScreen";
 
 type MainState = {
     currentScreen: ScreenType
@@ -39,6 +40,9 @@ export class Main extends React.Component<any, MainState> {
             <div className="App">
                 {currentScreen === ScreenType.PROCESSING && (
                     <GameScreen/>
+                )}
+                {currentScreen === ScreenType.INFO && (
+                    <InfoScreen/>
                 )}
                 {currentScreen === ScreenType.ABOUT && (
                     <AboutScreen/>

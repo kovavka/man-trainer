@@ -1,5 +1,5 @@
 export enum ScreenType {
     PROCESSING,
-    RESULT,
+    INFO,
     ABOUT,
 }
