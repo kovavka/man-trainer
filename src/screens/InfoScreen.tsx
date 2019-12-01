@@ -36,20 +36,22 @@ export class InfoScreen extends React.Component<{}, State> {
     render() {
      return (
          <div className="screen">
+
              <div className="page-header">
-                 <div className="page-header__title">
-                     Hand info
+                 <div className="flex-container flex-container--between">
+                     <div className="flex-container flex-container--small">
+                         <div className="pointer" onClick={() => this.onBackClick()}>Back</div>
+                     </div>
+                     <div className="page-header__title">
+                         Hand info
+                     </div>
+                     <div className="flex-container flex-container--small">
+                     </div>
                  </div>
              </div>
 
              <div className="page-content flex-container flex-container--column">
                 <InfoVisual />
-             </div>
-
-             <div className="flex-container flex-container--margin-s">
-                 <div className="flat-btn flat-btn--white">
-                     <div className="flat-btn__caption" onClick={() => this.onBackClick()}>Back</div>
-                 </div>
              </div>
          </div>
      )
