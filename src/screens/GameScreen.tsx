@@ -7,6 +7,7 @@ import {MetricService} from "../services/MetriсService";
 
 type State = {
     resultType: ResultType
+    timeSpent: string
 }
 
 export class GameScreen extends React.Component<{}, State> {
@@ -17,6 +18,7 @@ export class GameScreen extends React.Component<{}, State> {
 
         this.state = {
             resultType: this.stateService.resultType,
+            timeSpent: this.stateService.timeSpent,
         }
     }
 
@@ -31,12 +33,12 @@ export class GameScreen extends React.Component<{}, State> {
     updateState() {
         this.setState({
             resultType: this.stateService.resultType,
+            timeSpent: this.stateService.timeSpent,
         })
     }
 
     onAboutClick() {
         this.stateService.openAbout()
-
     }
 
     onConfirmClick() {
@@ -56,48 +58,54 @@ export class GameScreen extends React.Component<{}, State> {
     render() {
      return (
          <div className="screen">
-             <div className="page-header flex-container flex-container--between">
-                 <div className="flex-container flex-container--small">
-                     <div className="pointer" onClick={() => this.onLengthSelected(7)}>7</div>
-                     <div className="separator" />
-                     <div className="pointer" onClick={() => this.onLengthSelected(10)}>10</div>
-                     <div className="separator" />
-                     <div className="pointer" onClick={() => this.onLengthSelected(13)}>13</div>
+             <div className="page-header">
+                 <div className="flex-container flex-container--between">
+                     <div className="flex-container flex-container--small">
+                         <div className="pointer" onClick={() => this.onLengthSelected(7)}>7</div>
+                         <div className="separator" />
+                         <div className="pointer" onClick={() => this.onLengthSelected(10)}>10</div>
+                         <div className="separator" />
+                         <div className="pointer" onClick={() => this.onLengthSelected(13)}>13</div>
+                     </div>
+
+                     <div>
+                         {this.state.timeSpent}
+                     </div>
+                     <div className="flex-container flex-container--small flex-container--end">
+                        <div className="page-footer__title pointer" onClick={() => this.onAboutClick()}>About</div>
+                     </div>
                  </div>
-
-                 {this.state.resultType === ResultType.IDLE && (
-                     <div className="page-header__title">
-                         Select waitings
-                     </div>
-                 )}
-                 {this.state.resultType === ResultType.FAIL && (
-                     <div className="page-header__title page-header__title--fail">
-                         Fail
-                     </div>
-                 )}
-                 {this.state.resultType === ResultType.BAD && (
-                     <div className="page-header__title page-header__title--fail">
-                         Bad
-                     </div>
-                 )}
-                 {this.state.resultType === ResultType.NOT_REALLY_GOOD && (
-                     <div className="page-header__title">
-                         Not really good
-                     </div>
-                 )}
-                 {this.state.resultType === ResultType.GOOD && (
-                     <div className="page-header__title page-header__title--success">
-                         Good
-                     </div>
-                 )}
-                 {this.state.resultType === ResultType.PERFECT && (
-                     <div className="page-header__title page-header__title--success">
-                         Perfect
-                     </div>
-                 )}
-
-                 <div className="flex-container flex-container--small flex-container--end">
-                    <div className="page-footer__title pointer" onClick={() => this.onAboutClick()}>About</div>
+                 <div className="flex-container flex-container--margin-m flex-container--center">
+                     {this.state.resultType === ResultType.IDLE && (
+                         <div className="page-header__title">
+                             Select waitings
+                         </div>
+                     )}
+                     {this.state.resultType === ResultType.FAIL && (
+                         <div className="page-header__title page-header__title--fail">
+                             Fail
+                         </div>
+                     )}
+                     {this.state.resultType === ResultType.BAD && (
+                         <div className="page-header__title page-header__title--fail">
+                             Bad
+                         </div>
+                     )}
+                     {this.state.resultType === ResultType.NOT_REALLY_GOOD && (
+                         <div className="page-header__title">
+                             Not really good
+                         </div>
+                     )}
+                     {this.state.resultType === ResultType.GOOD && (
+                         <div className="page-header__title page-header__title--success">
+                             Good
+                         </div>
+                     )}
+                     {this.state.resultType === ResultType.PERFECT && (
+                         <div className="page-header__title page-header__title--success">
+                             Perfect
+                         </div>
+                     )}
                  </div>
              </div>
 

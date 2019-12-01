@@ -22,6 +22,8 @@ export class StateService {
     private _wrong: number[] = []
     private _correct: number[] = []
     private _missed: number[] = []
+    private startTime: Date
+    private endTime: Date
 
     onChange: signals.Signal = new signals.Signal()
     onHandChanged: signals.Signal = new signals.Signal()
@@ -68,6 +70,18 @@ export class StateService {
         return this._resultType
     }
 
+    get timeSpent(): string {
+        if (this.resultType === ResultType.IDLE) {
+            return ''
+        }
+
+        let allSeconds = Math.floor((Number(this.endTime) - Number(this.startTime)) / 1000)
+        let min = Math.floor(allSeconds / 60)
+        let sec = allSeconds % 60
+        let secStr = sec > 9 ? sec.toString() : `0${sec}`
+        return `${min} : ${secStr}`
+    }
+
     openAbout() {
         this.setScreen(ScreenType.ABOUT)
     }
@@ -96,6 +110,7 @@ export class StateService {
     }
 
     checkWaitings() {
+        this.endTime = new Date()
         this._wrong = []
         this._correct = []
         this._missed = []
@@ -156,6 +171,7 @@ export class StateService {
         if (waitStructures.length) {
             this._hand = hand
             this._waitStructures = waitStructures
+            this.startTime = new Date()
             this.onHandChanged.dispatch()
         } else {
             this.generateHand()
