@@ -97,7 +97,7 @@ export class GameScreen extends React.Component<{}, State> {
                  <div className={"flex-container flex-container--margin-l flex-container--center pointer " + this.titleClassName}
                     onClick={() => this.onInfoClick()}>
                      {this.state.resultType === ResultType.IDLE && (
-                         <div>Select waitings</div>
+                         <div>Select waits</div>
                      )}
                      {this.state.resultType === ResultType.FAIL && (
                          <div>Fail</div>

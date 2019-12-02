@@ -26,6 +26,7 @@ export class TempaiGenerator {
                     let tile = this.getRandomTile(tileCounts)
                     tileCounts[tile]--
                     hand.push(tile)
+                    forms = this.updateForms(forms, tileCounts)
                 } else {
                     let pair = this.getRandomTile(tileCounts.map(x => x > 1 ? x : 0))
                     tileCounts[pair] -= 2
