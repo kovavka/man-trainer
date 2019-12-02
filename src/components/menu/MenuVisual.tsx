@@ -5,9 +5,27 @@ import {StateService} from "../../services/StateService";
 export class MenuVisual extends React.Component<{}> {
     stateService: StateService = StateService.instance
 
-    private onMenuClick() {
 
+    private onSettingsClick() {
+        this.closePanel()
+        this.stateService.openSettings()
     }
+
+    private onAboutClick() {
+        this.closePanel()
+        this.stateService.openAbout()
+    }
+
+    private onCurrentGameClick() {
+        this.closePanel()
+        this.stateService.backToGame()
+    }
+
+    private closePanel() {
+        // @ts-ignore
+        document.querySelector("#menu__toggle").checked = false
+    }
+
 
     render() {
         return (
@@ -18,9 +36,9 @@ export class MenuVisual extends React.Component<{}> {
                 </label>
 
                 <ul className="menu__box">
-                    <li><a className="menu__item" onClick={() => this.onMenuClick()}>Settings</a></li>
-                    <li><a className="menu__item" onClick={() => this.onMenuClick()}>About</a></li>
-                    <li><a className="menu__item" onClick={() => this.onMenuClick()}></a></li>
+                    <li><a className="menu__item" onClick={() => this.onCurrentGameClick()}>Current game</a></li>
+                    <li><a className="menu__item" onClick={() => this.onSettingsClick()}>Settings</a></li>
+                    <li><a className="menu__item" onClick={() => this.onAboutClick()}>About</a></li>
                 </ul>
             </div>
         )

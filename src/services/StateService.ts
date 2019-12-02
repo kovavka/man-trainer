@@ -94,6 +94,10 @@ export class StateService {
         this.setScreen(ScreenType.INFO)
     }
 
+    openSettings() {
+        this.setScreen(ScreenType.SETTINGS)
+    }
+
     backToGame() {
         this.setScreen(ScreenType.PROCESSING)
     }

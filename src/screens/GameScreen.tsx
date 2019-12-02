@@ -41,9 +41,6 @@ export class GameScreen extends React.Component<{}, State> {
         this.stateService.openAbout()
     }
 
-    onInfoClick() {
-        this.stateService.openInfo()
-    }
 
     onConfirmClick() {
         this.stateService.checkWaitings()
@@ -94,33 +91,7 @@ export class GameScreen extends React.Component<{}, State> {
                         <div className="page-footer__title" onClick={() => this.onAboutClick()}>About</div>
                      </div>
                  </div>
-                 <div className={"flex-container flex-container--margin-l flex-container--center pointer " + this.titleClassName}
-                    onClick={() => this.onInfoClick()}>
-                     {this.state.resultType === ResultType.IDLE && (
-                         <div>Select waits</div>
-                     )}
-                     {this.state.resultType === ResultType.FAIL && (
-                         <div>Fail</div>
-                     )}
-                     {this.state.resultType === ResultType.BAD && (
-                         <div>Bad</div>
-                     )}
-                     {this.state.resultType === ResultType.NOT_REALLY_GOOD && (
-                         <div>Not really good</div>
-                     )}
-                     {this.state.resultType === ResultType.GOOD && (
-                         <div>Good</div>
-                     )}
-                     {this.state.resultType === ResultType.PERFECT && (
-                         <div>Perfect</div>
-                     )}
 
-                     {this.state.resultType !== ResultType.IDLE && (
-                         <svg viewBox={'0 0 28 28'} className="info-icon">
-                             <use xlinkHref='#info'></use>
-                         </svg>
-                     )}
-                 </div>
              </div>
 
              <div className="page-content flex-container flex-container--column">
