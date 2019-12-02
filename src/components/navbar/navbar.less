@@ -1,0 +1,38 @@
+.navbar {
+  text-align: center;
+  margin: 32px 64px;
+
+  @media(max-width: 800px) {
+    margin: 16px 12px 12px 12px;
+  }
+
+  @media(min-width: 1500px) {
+    margin: 32px 64px;
+  }
+
+  .navbar__title {
+    font-size: 36px;
+    width: fit-content;
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    @media(max-width: 800px) {
+      font-size: 24px;
+    }
+
+    @media(max-width: 370px) {
+      font-size: 24px;
+    }
+
+    &.navbar__title--centered {
+      margin: 0 auto;
+    }
+
+    &.navbar__title--fail {
+      color: #e47575;
+    }
+    &.navbar__title--success {
+      color: #b0e28c;
+    }
+  }
+}

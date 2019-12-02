@@ -1,8 +1,8 @@
 import * as React from "react";
-import {TileService} from "../services/TileService";
+import {TileService} from "../../services/TileService";
 import './tile.less';
-import {StateService} from '../services/StateService'
-import {TileType} from "../types/TileType";
+import {StateService} from '../../services/StateService'
+import {TileType} from "../../types/TileType";
 
 type TileVisualProps = {
     tile: number,

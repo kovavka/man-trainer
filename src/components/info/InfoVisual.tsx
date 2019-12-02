@@ -1,8 +1,9 @@
 import * as React from "react";
-import {TileVisual} from "./TileVisual";
-import {StateService} from '../services/StateService'
-import {TileType} from "../types/TileType";
-import {WaitPattern, WaitStructure} from "../types/HandStructures";
+import './info.less'
+import {TileVisual} from "../tile/TileVisual";
+import {StateService} from '../../services/StateService'
+import {TileType} from "../../types/TileType";
+import {WaitPattern, WaitStructure} from "../../types/HandStructures";
 
 type HandState = {
     structures: WaitStructure[]

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {TileVisual} from "./TileVisual";
+import {TileVisual} from "./tile/TileVisual";
 import {StateService} from '../services/StateService'
 import {TileType} from "../types/TileType";
 

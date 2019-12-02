@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {StateService} from '../services/StateService'
-import {InfoVisual} from '../components/InfoVisual'
+import {InfoVisual} from '../components/info/InfoVisual'
 
 type State = {
 }

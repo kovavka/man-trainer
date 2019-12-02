@@ -77,8 +77,8 @@ export class GameScreen extends React.Component<{}, State> {
     render() {
      return (
          <div className="screen">
-             <div className="page-header">
-                 <div className="flex-container flex-container--between">
+             <div className="page-header"  style={{display: "none"}}>
+                 <div className="flex-container flex-container--between"  style={{display: "none"}}>
                      <div className="flex-container flex-container--small">
                          <div className="pointer" onClick={() => this.onLengthSelected(7)}>7</div>
                          <div className="separator" />
