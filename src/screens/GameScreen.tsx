@@ -42,7 +42,9 @@ export class GameScreen extends React.Component<{}, State> {
     }
 
     onInfoClick() {
-        this.stateService.openInfo()
+        if (this.state.resultType !== ResultType.IDLE) {
+            this.stateService.openInfo()
+        }
     }
 
     onConfirmClick() {
@@ -64,13 +66,13 @@ export class GameScreen extends React.Component<{}, State> {
             return "page-header__title"
         }
         if (this.state.resultType === ResultType.NOT_REALLY_GOOD) {
-            return "pointer page-header__title"
+            return "pointer page-header__title pointer"
         }
         if (this.state.resultType === ResultType.FAIL || this.state.resultType === ResultType.BAD) {
-            return "pointer page-header__title page-header__title--fail"
+            return "pointer page-header__title page-header__title--fail pointer"
         }
         if (this.state.resultType === ResultType.GOOD || this.state.resultType === ResultType.PERFECT) {
-            return "pointer page-header__title page-header__title--success"
+            return "pointer page-header__title page-header__title--success pointer"
         }
     }
 
@@ -94,7 +96,7 @@ export class GameScreen extends React.Component<{}, State> {
                         <div className="page-footer__title" onClick={() => this.onAboutClick()}>About</div>
                      </div>
                  </div>
-                 <div className={"flex-container flex-container--margin-l flex-container--center pointer " + this.titleClassName}
+                 <div className={"flex-container flex-container--margin-l flex-container--center " + this.titleClassName}
                     onClick={() => this.onInfoClick()}>
                      {this.state.resultType === ResultType.IDLE && (
                          <div>Select waits</div>
