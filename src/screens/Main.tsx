@@ -4,6 +4,7 @@ import {ScreenType} from '../types/ScreenType'
 import {AboutScreen} from './AboutScreen'
 import { GameScreen } from './GameScreen'
 import {InfoScreen} from "./InfoScreen";
+import {MenuScreen} from '../react-native/screens/MenuScreen';
 
 type MainState = {
     currentScreen: ScreenType
@@ -38,6 +39,9 @@ export class Main extends React.Component<any, MainState> {
         const currentScreen = this.stateService.currentScreen
         return (
             <div className="App">
+                {currentScreen === ScreenType.MENU && (
+                    <MenuScreen/>
+                )}
                 {currentScreen === ScreenType.PROCESSING && (
                     <GameScreen/>
                 )}

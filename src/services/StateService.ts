@@ -13,7 +13,7 @@ const HAND_LENGTH_SETTING_NAME = 'HAND_LENGTH'
 export class StateService {
     private tempaiGenerator = new TempaiGenerator()
     private tempaiService = new TempaiService()
-    private _currentScreen: ScreenType = ScreenType.PROCESSING
+    private _currentScreen: ScreenType = ScreenType.MENU
     private _resultType: ResultType = ResultType.IDLE
     private handLength: number
     private _hand: number[]
